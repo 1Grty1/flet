@@ -240,7 +240,6 @@ def main(page: ft.Page):
         page.update()
 
     def click_aut(e):
-        print("jjjjjjjjjjjjjjjjjjjjj")
         if btn_c_or_y.text == "Учитель":
             f = "Ученик"
         else:
@@ -823,7 +822,6 @@ def student_main(page: ft.Page):
 
 def teacher_main(page: ft.Page, login, password):
     def click_new_tasks(e):
-        print(111111111111111111111111)
         client = socket.socket()  # создаем сокет клиента
         HOST = (socket.gethostname(), 55555)
         client.connect(HOST)  # подключаемся к серверу
@@ -883,7 +881,6 @@ def teacher_main(page: ft.Page, login, password):
         ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
         ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv")])
 
-    print(123)
 
     def chang_(e):
         if e.control.selected_index == 0:
