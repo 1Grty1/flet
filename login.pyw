@@ -16,7 +16,7 @@ def main(page: ft.Page):
             ft.Container(
                 ft.Row(
                     [
-                        ft.Container( alignment=ft.alignment.Alignment(-1, -1),
+                        ft.Container(alignment=ft.alignment.Alignment(-1, -1),
                                      width=(w / 3),
                                      height=h // 3),
                         ft.Container(ft.Text("Регистрация", size=30), alignment=ft.alignment.Alignment(-0.1, 0),
@@ -763,6 +763,7 @@ def main(page: ft.Page):
 
 def student_main(page: ft.Page):
     def chang_(e):
+
         if e.control.selected_index == 0:
             pagelet.appbar.title = ft.Text("Задания")
             pagelet.content = ft.Text("asd")
@@ -834,11 +835,115 @@ def teacher_main(page: ft.Page, login, password):
 
         for i in cla:
             c.append(ft.Checkbox(label=i, value=False, height=25))
-        pagelet.content = make_tasks
+        global state_page
+        state_page = 1
+        page_resize1(1)
+
+    def page_resize1(e):
+        make_tasks = ft.Row([
+            ft.Column([ft.Container(height=page.window_height / 4),
+                       ft.Row([ft.Container(width=page.window_width / 12), ft.Text("Тема", size=30)],
+                              alignment=ft.MainAxisAlignment.CENTER),
+                       ft.CupertinoTextField(),
+                       ft.Row([ft.Container(width=page.window_width / 12), ft.Text("", size=30)],
+                              alignment=ft.MainAxisAlignment.CENTER),
+                       classu
+                       ]),
+
+        ],
+            alignment=ft.MainAxisAlignment.CENTER
+        )
+        tasks = ft.ListView(expand=100000, spacing=10, padding=20, controls=[
+            ft.Row([ft.ElevatedButton("Создать новый тест", on_click=click_new_tasks)],
+                   alignment=ft.MainAxisAlignment.CENTER), ft.Divider(thickness=2), ft.Text("asdfggghfgsdfv"),
+            ft.Divider(thickness=2), ft.Text("asdfggghfgsdfv"), ft.Divider(thickness=2),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv")])
+        pagelet = ft.Pagelet(
+            appbar=ft.AppBar(
+                title=ft.Text("Задания"), bgcolor=ft.colors.LIGHT_BLUE_200
+            ),
+            content=tasks,
+            drawer=ft.NavigationDrawer(
+                controls=[
+                    ft.Container(height=12),
+                    ft.NavigationDrawerDestination(
+                        icon=ft.icons.ADD_TO_HOME_SCREEN_SHARP, label="Задания",
+                    ),
+                    ft.Divider(thickness=2),
+                    ft.NavigationDrawerDestination(
+                        icon=ft.icons.ADD_COMMENT, label="Журнал"
+
+                    ),
+                    ft.Divider(thickness=2),
+                    ft.NavigationDrawerDestination(
+                        icon=ft.icons.ADD_COMMENT, label="Выйти"
+
+                    ),
+                    ft.Divider(thickness=2),
+                ],
+                selected_index=index,
+                on_change=chang_
+            ),
+            floating_action_button_location=ft.FloatingActionButtonLocation.CENTER_DOCKED,
+            width=page.window_width,
+            height=page.window_height,
+
+        )
+        global state_page
+        page.clean()
+        print(state_page)
+        if state_page == 0:
+            print(0)
+            pagelet.appbar.title = ft.Text("Задания")
+            pagelet.content = tasks
+            page.add(pagelet)
+            page.update()
+        elif state_page == 1:
+            print(1)
+            pagelet.content = make_tasks
+            page.add(pagelet)
+            page.update()
+        elif state_page == 2:
+            print(2)
+            pagelet.appbar.title = ft.Text("Журнал")
+            pagelet.content = ft.Text("asda")
+            page.add(pagelet)
+            page.update()
+
+    def chang_(e):
+        global state_page, index
+        if e.control.selected_index == 0:
+            index = 0
+            state_page = 0
+            page_resize1(1)
+        if e.control.selected_index == 1:
+            index = 1
+            state_page = 2
+            page_resize1(1)
+        if e.control.selected_index == 2:
+            index = 2
+            page.clean()
+            main(page)
         pagelet.update()
         page.update()
 
+    global c, state_page, index
     c = []
+    state_page = 0
+    index = 0
+
+    page.on_resize = page_resize1
 
     classu = ft.ExpansionTile(
         title=ft.Text("Классы"),
@@ -848,7 +953,7 @@ def teacher_main(page: ft.Page, login, password):
         collapsed_text_color=ft.colors.BLUE,
         text_color=ft.colors.BLUE,
         controls=[ft.ListTile(title=ft.Row([ft.Column(c)]))],
-        width=150,
+        width=300,
         shape=ft.CircleBorder()
     )
 
@@ -881,20 +986,6 @@ def teacher_main(page: ft.Page, login, password):
         ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
         ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv")])
 
-
-    def chang_(e):
-        if e.control.selected_index == 0:
-            pagelet.appbar.title = ft.Text("Задания")
-            pagelet.content = tasks
-        if e.control.selected_index == 1:
-            pagelet.appbar.title = ft.Text("Журнал")
-            pagelet.content = ft.Text("asda")
-        if e.control.selected_index == 2:
-            page.clean()
-            main(page)
-        pagelet.update()
-        page.update()
-
     # page.window_full_screen = True
     page.padding = ft.padding.only(top=0, left=0)
     pagelet = ft.Pagelet(
@@ -920,7 +1011,7 @@ def teacher_main(page: ft.Page, login, password):
                 ),
                 ft.Divider(thickness=2),
             ],
-            selected_index=0,
+            selected_index=index,
             on_change=chang_
         ),
         floating_action_button_location=ft.FloatingActionButtonLocation.CENTER_DOCKED,
