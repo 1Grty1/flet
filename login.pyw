@@ -250,7 +250,8 @@ def main(page: ft.Page):
         try:
             client.connect(HOST)  # подключаемся к серверу
         except ConnectionRefusedError:
-            page.snack_bar = ft.SnackBar(ft.Text("Ошибка соиденения с сервером! Пожалуйста подождите и повторите попытку"))
+            page.snack_bar = ft.SnackBar(
+                ft.Text("Ошибка соиденения с сервером! Пожалуйста подождите и повторите попытку"))
             page.snack_bar.open = True
             page.update()
             return
@@ -305,7 +306,8 @@ def main(page: ft.Page):
         try:
             client.connect(HOST)  # подключаемся к серверу
         except ConnectionRefusedError:
-            page.snack_bar = ft.SnackBar(ft.Text("Ошибка соиденения с сервером! Пожалуйста подаждите и повторите попытку"))
+            page.snack_bar = ft.SnackBar(
+                ft.Text("Ошибка соиденения с сервером! Пожалуйста подаждите и повторите попытку"))
             page.snack_bar.open = True
             page.update()
             return
@@ -455,7 +457,8 @@ def main(page: ft.Page):
                           initially_expanded=False,
                           collapsed_text_color=ft.colors.BLUE,
                           text_color=ft.colors.BLUE,
-                          controls=[ft.ListTile(title=ft.Column([A1, B1, C1, D1, E1]))], )
+                          controls=[ft.ListTile(title=ft.Column([A1, B1, C1, D1, E1]))],
+                          width=135, )
     _2 = ft.ExpansionTile(
         title=ft.Text("2 класс"),
         # subtitle=ft.Text("Leading expansion arrow icon"),
@@ -464,7 +467,8 @@ def main(page: ft.Page):
         collapsed_text_color=ft.colors.BLUE,
         text_color=ft.colors.BLUE,
         controls=[
-            ft.ListTile(title=ft.Column([A2, B2, C2, D2, E2]))], )
+            ft.ListTile(title=ft.Column([A2, B2, C2, D2, E2]))],
+        width=135, )
     _3 = ft.ExpansionTile(
         title=ft.Text("3 класс"),
         # subtitle=ft.Text("Leading expansion arrow icon"),
@@ -473,7 +477,8 @@ def main(page: ft.Page):
         collapsed_text_color=ft.colors.BLUE,
         text_color=ft.colors.BLUE,
         controls=[
-            ft.ListTile(title=ft.Column([A3, B3, C3, D3, E3]))], )
+            ft.ListTile(title=ft.Column([A3, B3, C3, D3, E3]))],
+        width=135, )
     _4 = ft.ExpansionTile(
         title=ft.Text("4 класс"),
         # subtitle=ft.Text("Leading expansion arrow icon"),
@@ -483,6 +488,7 @@ def main(page: ft.Page):
         text_color=ft.colors.BLUE,
         controls=[
             ft.ListTile(title=ft.Column([A4, B4, C4, D4, E4]))],
+        width=135,
     )
     _5 = ft.ExpansionTile(
         title=ft.Text("5 класс"),
@@ -493,6 +499,7 @@ def main(page: ft.Page):
         text_color=ft.colors.BLUE,
         controls=[
             ft.ListTile(title=ft.Column([A5, B5, C5, D5, E5]))],
+        width=135,
     )
     _6 = ft.ExpansionTile(
         title=ft.Text("6 класс"),
@@ -503,6 +510,7 @@ def main(page: ft.Page):
         text_color=ft.colors.BLUE,
         controls=[
             ft.ListTile(title=ft.Column([A6, B6, C6, D6, E6]))],
+        width=135,
     )
     _7 = ft.ExpansionTile(
         title=ft.Text("7 класс"),
@@ -513,6 +521,7 @@ def main(page: ft.Page):
         text_color=ft.colors.BLUE,
         controls=[
             ft.ListTile(title=ft.Column([A7, B7, C7, D7, E7]))],
+        width=135,
     )
     _8 = ft.ExpansionTile(
         title=ft.Text("8 класс"),
@@ -523,6 +532,7 @@ def main(page: ft.Page):
         text_color=ft.colors.BLUE,
         controls=[
             ft.ListTile(title=ft.Column([A8, B8, C8, D8, E8]))],
+        width=135,
     )
     _9 = ft.ExpansionTile(
         title=ft.Text("9 класс"),
@@ -533,6 +543,7 @@ def main(page: ft.Page):
         text_color=ft.colors.BLUE,
         controls=[
             ft.ListTile(title=ft.Column([A9, B9, C9, D9, E9]))],
+        width=135,
     )
     _10 = ft.ExpansionTile(
         title=ft.Text("10 класс"),
@@ -543,6 +554,7 @@ def main(page: ft.Page):
         text_color=ft.colors.BLUE,
         controls=[
             ft.ListTile(title=ft.Column([A10, B10, C10, D10, E10]))],
+        width=145,
     )
     _11 = ft.ExpansionTile(
         title=ft.Text("11 класс"),
@@ -553,6 +565,7 @@ def main(page: ft.Page):
         text_color=ft.colors.BLUE,
         controls=[
             ft.ListTile(title=ft.Column([A11, B11, C11, D11, E11]))],
+        width=145,
     )
     Class = ft.ExpansionTile(
         title=ft.Text("Выберете классы"),
@@ -562,9 +575,9 @@ def main(page: ft.Page):
         collapsed_text_color=ft.colors.BLUE,
         text_color=ft.colors.BLUE,
         controls=[ft.ListTile(title=ft.Row(
-            [ft.Column([_1, _2, _3, _4], width=300), ft.Column([_5, _6, _7, _8], width=300),
-             ft.Column([_9, _10, _11], width=300)]))],
-        width=900,
+            [ft.Column([_1, _2, _3, _4]), ft.Column([_5, _6, _7, _8]),
+             ft.Column([_9, _10, _11])]))],
+        width=450
         # shape=ft.CircleBorder()
     )
 
@@ -854,9 +867,10 @@ def teacher_main(page: ft.Page, login, password):
     def page_resize1(e):
         make_tasks = ft.Row([
             ft.Column([ft.Container(height=page.window_height / 4),
-                       ft.Row([ft.Container(width=page.window_width / 12), ft.Text("Тема", size=30)],
+                       ft.Row([ft.Container(width=page.window_width / 12)],
                               alignment=ft.MainAxisAlignment.CENTER),
-                       ft.CupertinoTextField(),
+                       ft.TextField(label="Тема", border=ft.InputBorder.UNDERLINE,
+                                    width=page.window_width - page.window_width / 1.3),
                        ft.Row([ft.Container(width=page.window_width / 12), ft.Text("", size=30)],
                               alignment=ft.MainAxisAlignment.CENTER),
                        classu
@@ -973,8 +987,10 @@ def teacher_main(page: ft.Page, login, password):
         ft.Column([ft.Container(height=page.window_height / 4),
                    ft.Row([ft.Container(width=page.window_width / 12), ft.Text("Тема", size=30)],
                           alignment=ft.MainAxisAlignment.CENTER),
-                   ft.CupertinoTextField(), ft.Row([ft.Container(width=page.window_width / 12), ft.Text("", size=30)],
-                                                   alignment=ft.MainAxisAlignment.CENTER),
+                   ft.TextField(label="Тема", border=ft.InputBorder.UNDERLINE,
+                                width=page.window_width - page.window_width / 5),
+                   ft.Row([ft.Container(width=page.window_width / 12), ft.Text("", size=30)],
+                          alignment=ft.MainAxisAlignment.CENTER),
                    classu
                    ]),
 
