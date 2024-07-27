@@ -247,7 +247,13 @@ def main(page: ft.Page):
 
         client = socket.socket()  # создаем сокет клиента
         HOST = (socket.gethostname(), 55555)
-        client.connect(HOST)  # подключаемся к серверу
+        try:
+            client.connect(HOST)  # подключаемся к серверу
+        except ConnectionRefusedError:
+            page.snack_bar = ft.SnackBar(ft.Text("Ошибка соиденения с сервером! Пожалуйста подождите и повторите попытку"))
+            page.snack_bar.open = True
+            page.update()
+
         gf = [2, f, login.value, password.value]
         client.send(str(gf).encode())
         data = client.recv(40000)
@@ -296,8 +302,12 @@ def main(page: ft.Page):
 
         client = socket.socket()  # создаем сокет клиента
         HOST = (socket.gethostname(), 55555)
-        client.connect(HOST)  # подключаемся к серверу
-
+        try:
+            client.connect(HOST)  # подключаемся к серверу
+        except ConnectionRefusedError:
+            page.snack_bar = ft.SnackBar(ft.Text("Ошибка соиденения с сервером! Пожалуйста подаждите и повторите попытку"))
+            page.snack_bar.open = True
+            page.update()
         if ccc[0] == "Учитель":
             gf = [1, ccc[0], name.value, surname.value, patronymic.value, cl, school.value, codschool.value,
                   login.value,
