@@ -859,29 +859,57 @@ def teacher_main(page: ft.Page, login, password):
         cla.sort()
 
         for i in cla:
-            c.append(ft.Checkbox(label=i, value=False, height=25))
+            c.append(ft.Checkbox(label=i, value=False, height=25, on_change=val))
         global state_page
         state_page = 1
         page_resize1(1)
 
     def page_resize1(e):
-        make_tasks = ft.Row([
-            ft.Column([ft.Container(height=page.window_height / 4),
-                       ft.Row([ft.Container(width=page.window_width / 12)],
-                              alignment=ft.MainAxisAlignment.CENTER),
-                       ft.TextField(label="Тема", border=ft.InputBorder.UNDERLINE,
-                                    width=page.window_width - page.window_width / 1.3),
-                       ft.Row([ft.Container(width=page.window_width / 12), ft.Text("", size=30)],
-                              alignment=ft.MainAxisAlignment.CENTER),
-                       classu
-                       ]),
-
-        ],
-            alignment=ft.MainAxisAlignment.CENTER
+        w = page.window_width
+        h = page.window_height
+        make_tasks = ft.Column(
+            [
+                ft.Container(
+                    ft.Container(
+                        ft.Row(
+                            [
+                                ft.Container(alignment=ft.alignment.Alignment(-1, -1),
+                                             width=(w / 3),
+                                             height=h // 3),
+                                ft.Container(ft.Text("Создание тестов", size=30),
+                                             alignment=ft.alignment.Alignment(-0.1, 0),
+                                             width=w / 3 + 0, height=h // 3),
+                            ],
+                            width=w
+                            # alignment=ft.MainAxisAlignment.CENTER
+                        ),
+                        # width=w,
+                        alignment=ft.alignment.Alignment(0, -1),
+                    )
+                ),
+                ft.Row(
+                    [
+                        tema
+                    ], alignment=ft.MainAxisAlignment.CENTER
+                ),
+                ft.Row(
+                    [
+                        classu
+                    ], alignment=ft.MainAxisAlignment.CENTER
+                ),
+                ft.Row(
+                    [
+                        next_btn
+                    ], alignment=ft.MainAxisAlignment.CENTER
+                ),
+            ]
         )
-        tasks = ft.ListView(expand=100000, spacing=10, padding=20, controls=[
-            ft.Row([ft.ElevatedButton("Создать новый тест", on_click=click_new_tasks)],
-                   alignment=ft.MainAxisAlignment.CENTER), ft.Divider(thickness=2), ft.Text("asdfggghfgsdfv"),
+        tasks = ft.ListView(expand=100000, spacing=10, padding=20, controls=
+        [
+            ft.Row(
+                [
+                    ft.ElevatedButton("Создать новый тест", on_click=click_new_tasks)],
+                alignment=ft.MainAxisAlignment.CENTER), ft.Divider(thickness=2), ft.Text("asdfggghfgsdfv"),
             ft.Divider(thickness=2), ft.Text("asdfggghfgsdfv"), ft.Divider(thickness=2),
             ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
             ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
@@ -894,14 +922,18 @@ def teacher_main(page: ft.Page, login, password):
             ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
             ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
             ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv")])
+            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv")
+        ]
+        )
+
         pagelet = ft.Pagelet(
             appbar=ft.AppBar(
                 title=ft.Text("Задания"), bgcolor=ft.colors.LIGHT_BLUE_200
             ),
             content=tasks,
             drawer=ft.NavigationDrawer(
-                controls=[
+                controls=
+                [
                     ft.Container(height=12),
                     ft.NavigationDrawerDestination(
                         icon=ft.icons.ADD_TO_HOME_SCREEN_SHARP, label="Задания",
@@ -927,6 +959,7 @@ def teacher_main(page: ft.Page, login, password):
 
         )
         global state_page
+        time.sleep(0.001)
         page.clean()
         print(state_page)
         if state_page == 0:
@@ -964,10 +997,40 @@ def teacher_main(page: ft.Page, login, password):
         pagelet.update()
         page.update()
 
+    def val(e):
+        if tema.value:
+            print(1)
+            for i in c:
+                print(2)
+                if i.value:
+                    print(3)
+                    next_btn.disabled = False
+                    page.update()
+                    break
+            else:
+                print(4)
+                next_btn.disabled = True
+                page.update()
+        else:
+            print(5)
+            next_btn.disabled = True
+            page.update()
+
+    def click_next(e):
+        global state_page
+        state_page = 3
+        page_resize1(1)
+
     global c, state_page, index
     c = []
     state_page = 0
     index = 0
+
+    # btn
+    next_btn = ft.ElevatedButton("Далее", width=300, disabled=True, on_click=click_next)
+
+    # text
+    tema = ft.TextField(label="Тема", border=ft.InputBorder.UNDERLINE, on_change=val)
 
     page.on_resize = page_resize1
 
@@ -985,12 +1048,11 @@ def teacher_main(page: ft.Page, login, password):
 
     make_tasks = ft.Row([
         ft.Column([ft.Container(height=page.window_height / 4),
+                   ft.Text("Создание тестов"),
                    ft.Row([ft.Container(width=page.window_width / 12), ft.Text("Тема", size=30)],
                           alignment=ft.MainAxisAlignment.CENTER),
                    ft.TextField(label="Тема", border=ft.InputBorder.UNDERLINE,
                                 width=page.window_width - page.window_width / 5),
-                   ft.Row([ft.Container(width=page.window_width / 12), ft.Text("", size=30)],
-                          alignment=ft.MainAxisAlignment.CENTER),
                    classu
                    ]),
 
