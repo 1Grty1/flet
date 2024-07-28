@@ -150,6 +150,34 @@ def main(page: ft.Page):
                 )
             ])
         )
+        page_reg20 = ft.Container(
+            ft.Column([
+                ft.Row(
+                    [
+                        ft.Column(
+                            [
+                                class1, btn_next1
+                            ],
+                            alignment=ft.MainAxisAlignment.CENTER
+                        ),
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    # vertical_alignment=ft.CrossAxisAlignment,
+                ),
+                ft.Row(
+                    [
+                        ft.Column(
+                            [
+
+                            ],
+                            alignment=ft.MainAxisAlignment.CENTER
+                        ),
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    # vertical_alignment=ft.CrossAxisAlignment,
+                )
+            ])
+        )
         page_reg3 = ft.Container(
             ft.Row(
                 [
@@ -603,187 +631,7 @@ def main(page: ft.Page):
     login.value = ""
     password.value = ""
 
-    page_aut = ft.Container(
-        ft.Container(
-            ft.Row(
-                [
-                    ft.Container(c_or_y, alignment=ft.alignment.Alignment(-1, -1),
-                                 width=(w / 3),
-                                 height=h // 3),
-                    ft.Container(ft.Text("Авторизация", size=30), alignment=ft.alignment.Alignment(-0.1, 0),
-                                 width=w / 3 + 0, height=h // 3),
-                ],
-                width=w
-                # alignment=ft.MainAxisAlignment.CENTER
-            ),
-            # width=w,
-            alignment=ft.alignment.Alignment(0, -1),
-        )
-    )
-    page_aut1 = ft.Container(
-        ft.Row(
-            [
-                ft.Container(ft.Column(
-                    [
-                        ft.Container(width=15),
-                        ft.Container(ft.Column([
-                            ft.Row([login], alignment=ft.MainAxisAlignment.CENTER),
-                            ft.Row([password], alignment=ft.MainAxisAlignment.CENTER),
-                            ft.Row([btn_aut], alignment=ft.MainAxisAlignment.CENTER),
-                            ft.Row([btn_reg, pass_], alignment=ft.MainAxisAlignment.CENTER)
-                        ]),
-                            width=310,
-                        )
-
-                    ],
-                    # alignment=ft.MainAxisAlignment.CENTER,
-
-                ),
-                    width=325,
-                    height=275,
-                    alignment=ft.alignment.Alignment(0, -0.5),
-                    border_radius=10,
-                    shadow=ft.BoxShadow(
-                        spread_radius=1,
-                        blur_radius=15,
-                        color=ft.colors.BLUE_GREY_300,
-                        offset=ft.Offset(0, 0),
-                        blur_style=ft.ShadowBlurStyle.OUTER, ),
-                    # bgcolor="green"
-                )
-
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-            # vertical_alignment=ft.CrossAxisAlignment,
-        ),
-    )
-    page_reg = ft.Container(
-        ft.Container(
-            ft.Row(
-                [
-                    ft.Container(alignment=ft.alignment.Alignment(-1, -1),
-                                 width=(w / 3),
-                                 height=h // 3),
-                    ft.Container(ft.Text("Регистрация", size=30), alignment=ft.alignment.Alignment(-0.1, 0),
-                                 width=w / 3 + 0, height=h // 3),
-                ],
-                width=w
-                # alignment=ft.MainAxisAlignment.CENTER
-            ),
-            # width=w,
-            alignment=ft.alignment.Alignment(0, -1),
-        )
-    )
-    page_reg0 = ft.Container(
-        ft.Row(
-            [
-                ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=w // 3),
-                ft.Container(ft.Text("Регистрация", size=30), alignment=ft.alignment.Alignment(0, -0),
-                             width=w // 3),
-                ft.Container(alignment=ft.alignment.Alignment(0.8, -0.9), width=w // 3),
-            ]
-        ),
-        alignment=ft.alignment.Alignment(0, -1), height=100
-    )
-    page_reg1 = ft.Container(
-        ft.Row(
-            [
-                ft.Column(
-                    [
-                        name, surname, patronymic, btn_next,
-                    ],
-                    alignment=ft.MainAxisAlignment.CENTER
-                ),
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-            # vertical_alignment=ft.CrossAxisAlignment,
-        )
-    )
-    page_reg05 = ft.Container(
-        ft.Row(
-            [
-                ft.Column(
-                    [
-                        school, codschool, teacher, student, btn_next05,
-                    ],
-                    alignment=ft.MainAxisAlignment.CENTER
-                ),
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-            # vertical_alignment=ft.CrossAxisAlignment,
-        )
-    )
-    page_reg2 = ft.Container(
-        ft.Column([
-            ft.Row(
-                [
-                    ft.Column(
-                        [
-                            Class, btn_next1
-                        ],
-                        alignment=ft.MainAxisAlignment.CENTER
-                    ),
-                ],
-                alignment=ft.MainAxisAlignment.CENTER,
-                # vertical_alignment=ft.CrossAxisAlignment,
-            ),
-            ft.Row(
-                [
-                    ft.Column(
-                        [
-
-                        ],
-                        alignment=ft.MainAxisAlignment.CENTER
-                    ),
-                ],
-                alignment=ft.MainAxisAlignment.CENTER,
-                # vertical_alignment=ft.CrossAxisAlignment,
-            )
-        ])
-    )
-    page_reg20 = ft.Container(
-        ft.Column([
-            ft.Row(
-                [
-                    ft.Column(
-                        [
-                            class1, btn_next1
-                        ],
-                        alignment=ft.MainAxisAlignment.CENTER
-                    ),
-                ],
-                alignment=ft.MainAxisAlignment.CENTER,
-                # vertical_alignment=ft.CrossAxisAlignment,
-            ),
-            ft.Row(
-                [
-                    ft.Column(
-                        [
-
-                        ],
-                        alignment=ft.MainAxisAlignment.CENTER
-                    ),
-                ],
-                alignment=ft.MainAxisAlignment.CENTER,
-                # vertical_alignment=ft.CrossAxisAlignment,
-            )
-        ])
-    )
-    page_reg3 = ft.Container(
-        ft.Row(
-            [
-                ft.Column(
-                    [
-                        login, password, btn_reg1,
-                    ],
-                    alignment=ft.MainAxisAlignment.CENTER
-                ),
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-            # vertical_alignment=ft.CrossAxisAlignment,
-        )
-    )
-    page.add(page_aut, page_aut1)
+    page_resize(1)
 
 
 def student_main(page: ft.Page):
@@ -994,7 +842,6 @@ def teacher_main(page: ft.Page, login, password):
             index = 2
             page.clean()
             main(page)
-        pagelet.update()
         page.update()
 
     def val(e):
@@ -1021,6 +868,10 @@ def teacher_main(page: ft.Page, login, password):
         state_page = 3
         page_resize1(1)
 
+    page.on_resize = page_resize1
+    # page.window_full_screen = True
+    page.padding = ft.padding.only(top=0, left=0)
+
     global c, state_page, index
     c = []
     state_page = 0
@@ -1031,8 +882,6 @@ def teacher_main(page: ft.Page, login, password):
 
     # text
     tema = ft.TextField(label="Тема", border=ft.InputBorder.UNDERLINE, on_change=val)
-
-    page.on_resize = page_resize1
 
     classu = ft.ExpansionTile(
         title=ft.Text("Классы"),
@@ -1046,72 +895,7 @@ def teacher_main(page: ft.Page, login, password):
         shape=ft.CircleBorder()
     )
 
-    make_tasks = ft.Row([
-        ft.Column([ft.Container(height=page.window_height / 4),
-                   ft.Text("Создание тестов"),
-                   ft.Row([ft.Container(width=page.window_width / 12), ft.Text("Тема", size=30)],
-                          alignment=ft.MainAxisAlignment.CENTER),
-                   ft.TextField(label="Тема", border=ft.InputBorder.UNDERLINE,
-                                width=page.window_width - page.window_width / 5),
-                   classu
-                   ]),
-
-    ],
-        alignment=ft.MainAxisAlignment.CENTER
-    )
-    tasks = ft.ListView(expand=100000, spacing=10, padding=20, controls=[
-        ft.Row([ft.ElevatedButton("Создать новый тест", on_click=click_new_tasks)],
-               alignment=ft.MainAxisAlignment.CENTER), ft.Divider(thickness=2), ft.Text("asdfggghfgsdfv"),
-        ft.Divider(thickness=2), ft.Text("asdfggghfgsdfv"), ft.Divider(thickness=2),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-        ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv")])
-
-    # page.window_full_screen = True
-    page.padding = ft.padding.only(top=0, left=0)
-    pagelet = ft.Pagelet(
-        appbar=ft.AppBar(
-            title=ft.Text("Задания"), bgcolor=ft.colors.LIGHT_BLUE_200
-        ),
-        content=tasks,
-        drawer=ft.NavigationDrawer(
-            controls=[
-                ft.Container(height=12),
-                ft.NavigationDrawerDestination(
-                    icon=ft.icons.ADD_TO_HOME_SCREEN_SHARP, label="Задания",
-                ),
-                ft.Divider(thickness=2),
-                ft.NavigationDrawerDestination(
-                    icon=ft.icons.ADD_COMMENT, label="Журнал"
-
-                ),
-                ft.Divider(thickness=2),
-                ft.NavigationDrawerDestination(
-                    icon=ft.icons.ADD_COMMENT, label="Выйти"
-
-                ),
-                ft.Divider(thickness=2),
-            ],
-            selected_index=index,
-            on_change=chang_
-        ),
-        floating_action_button_location=ft.FloatingActionButtonLocation.CENTER_DOCKED,
-        width=page.window_width,
-        height=page.window_height,
-
-    )
-
-    page.add(pagelet)
-
+    page_resize1(1)
 
 ft.app(target=main)
 # view=ft.AppView.WEB_BROWSER
