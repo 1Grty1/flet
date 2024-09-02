@@ -8,7 +8,6 @@ def main(page: ft.Page):
     # page.window_full_screen = True
     global state_page
     state_page = 0
-    print('width', page.window_width, '\nheight', page.window_height)
 
     def page_resize(e):
         w = page.window_width
@@ -709,17 +708,13 @@ def teacher_main(page: ft.Page, login, password):
 
         for i in cla:
             c.append(ft.Checkbox(label=i, value=False, height=25, on_change=val))
-        global state_page, vopr
+        global state_page
         state_page = 1
-        vopr = 1
         page_resize1(1)
 
     def page_resize1(e):
         w = page.window_width
         h = page.window_height
-
-        global state_page, vopr
-
         make_tasks = ft.Column(
             [
                 ft.Container(
@@ -757,7 +752,6 @@ def teacher_main(page: ft.Page, login, password):
                 ),
             ]
         )
-
         tasks = ft.ListView(expand=100000, spacing=10, padding=20, controls=
         [
             ft.Row(
@@ -778,7 +772,7 @@ def teacher_main(page: ft.Page, login, password):
             ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
             ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv")
         ]
-                            )
+        )
 
         pagelet = ft.Pagelet(
             appbar=ft.AppBar(
@@ -812,44 +806,25 @@ def teacher_main(page: ft.Page, login, password):
             height=page.window_height,
 
         )
-
-        list_make_tasks1 = [
-                               ft.Container(
-                                   ft.Row(
-                                       [
-                                           ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=w // 3),
-                                           ft.Container(ft.Text(f"{vopr} вопрос", size=30),
-                                                        alignment=ft.alignment.Alignment(0, -0),
-                                                        width=w // 3),
-                                           ft.Container(alignment=ft.alignment.Alignment(0.8, -0.9), width=w // 3),
-                                       ]
-                                   ),
-                                   alignment=ft.alignment.Alignment(0, -1), height=h / 15
-                               )] + list_make_tasks
-
-        make_tasks1 = ft.Column(
-            list_make_tasks1,
-            scroll=ft.ScrollMode.ADAPTIVE
-        )
+        global state_page
         time.sleep(0.001)
         page.clean()
+        print(state_page)
         if state_page == 0:
+            print(0)
             pagelet.appbar.title = ft.Text("Задания")
             pagelet.content = tasks
             page.add(pagelet)
             page.update()
         elif state_page == 1:
+            print(1)
             pagelet.content = make_tasks
             page.add(pagelet)
             page.update()
         elif state_page == 2:
+            print(2)
             pagelet.appbar.title = ft.Text("Журнал")
             pagelet.content = ft.Text("asda")
-            page.add(pagelet)
-            page.update()
-        elif state_page == 3:
-            pagelet.content = make_tasks1
-
             page.add(pagelet)
             page.update()
 
@@ -871,79 +846,42 @@ def teacher_main(page: ft.Page, login, password):
 
     def val(e):
         if tema.value:
+            print(1)
             for i in c:
+                print(2)
                 if i.value:
+                    print(3)
                     next_btn.disabled = False
                     page.update()
                     break
             else:
+                print(4)
                 next_btn.disabled = True
                 page.update()
         else:
+            print(5)
             next_btn.disabled = True
             page.update()
-
-    def val1(e):
-        for i in ansver1:
-            if i.value:
-                pass
-            else:
-                next_tasks.disabled = True
-                break
-        else:
-            next_tasks.disabled = False
 
     def click_next(e):
         global state_page
         state_page = 3
         page_resize1(1)
 
-    def change(e):
-        if option.text == "С вариантам ответов":
-            ansver.title = ft.Text(option.text)
-            option.text = "Без вариантов ответов"
-        else:
-            ansver.title = ft.Text(option.text)
-            option.text = "С вариантам ответов"
-        ansver.initially_expanded = False
-        page.update()
-
-    def click_make_ansver(e):
-        a = len(ansver1)
-        ansver1.append(ft.TextField(label="Вариант ответа", on_change=val1))
-        list_make_tasks.append(ft.Row(
-            [
-                ansver1[a]
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),)
-        page_resize1(1)
-
     page.on_resize = page_resize1
     # page.window_full_screen = True
     page.padding = ft.padding.only(top=0, left=0)
 
-    global c, state_page, index, vopr
+    global c, state_page, index
     c = []
     state_page = 0
     index = 0
-    vopr = 0
 
     # btn
     next_btn = ft.ElevatedButton("Далее", width=300, disabled=True, on_click=click_next)
-    option = ft.CupertinoButton("Без вариантов ответов", width=300, on_click=change)
-    make_ansver = ft.ElevatedButton("Новый вариант ответа", width=300, on_click=click_make_ansver)
-    next_tasks = ft.ElevatedButton("Следующие задание", width=300, disabled=True, on_click=click_make_ansver)
 
     # text
     tema = ft.TextField(label="Тема", border=ft.InputBorder.UNDERLINE, on_change=val)
-    question = ft.TextField(label="Вопрос", on_change=val)
-
-    ansver1 = [ft.TextField(label="Вариант ответа", on_change=val1),
-               ft.TextField(label="Вариант ответа", on_change=val1), ]
-
-    w = page.window_width
-    h = page.window_height
 
     classu = ft.ExpansionTile(
         title=ft.Text("Классы"),
@@ -956,76 +894,8 @@ def teacher_main(page: ft.Page, login, password):
         width=300,
         shape=ft.CircleBorder()
     )
-    ansver = ft.ExpansionTile(
-        title=ft.Text("С вариантам ответов"),
-        # subtitle=ft.Text("Leading expansion arrow icon"),
-        affinity=ft.TileAffinity.LEADING,
-        initially_expanded=False,
-        collapsed_text_color=ft.colors.BLUE,
-        text_color=ft.colors.BLUE,
-        controls=[option],
-        width=300,
-        # shape=ft.CircleBorder()
-    )
-
-    list_make_tasks = [
-        ft.Row(
-            [
-                question
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-        ft.Row(
-            [
-                ansver
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-        ft.Divider(thickness=2),
-        ft.Row(
-            [
-                make_ansver
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-        ft.Row(
-            [
-                ansver1[0]
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-        ft.Row(
-            [
-                ansver1[1]
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-    ]
-
-    cope_list_make_tasks1 = [
-        ft.Row(
-            [
-                question
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-        ft.Row(
-            [
-                ansver
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-        ft.Divider(thickness=2),
-        ft.Row(
-            [
-                make_ansver
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-    ]
 
     page_resize1(1)
-
 
 ft.app(target=main)
 # view=ft.AppView.WEB_BROWSER
