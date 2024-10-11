@@ -697,28 +697,19 @@ def student_main(page: ft.Page):
 
 def teacher_main(page: ft.Page, login, password):
     def click_new_tasks(e):
-        client = socket.socket()  # создаем сокет клиента
-        HOST = (socket.gethostname(), 55555)
-        client.connect(HOST)  # подключаемся к серверу
-        a = [3, "Учитель", login.value, password.value]
-        client.send(str(a).encode())
-        cla = client.recv(40000)
-        cla = cla.decode()
-        cla = ast.literal_eval(cla)
-        cla.sort()
-
-        for i in cla:
-            c.append(ft.Checkbox(label=i, value=False, height=25, on_change=val))
         global state_page, vopr
         state_page = 1
         vopr = 1
         page_resize1(1)
 
     def page_resize1(e):
+        global state_page, vopr, tasks, list_make_tasks, w, h
         w = page.window_width
         h = page.window_height
 
-        global state_page, vopr
+        for i in range(len(list_make_tasks)):
+            if type(list_make_tasks[i]) == type(ft.Row()):
+                list_make_tasks[i].controls[0].width = (w - w / 4.5) / 3
 
         make_tasks = ft.Column(
             [
@@ -727,11 +718,12 @@ def teacher_main(page: ft.Page, login, password):
                         ft.Row(
                             [
                                 ft.Container(alignment=ft.alignment.Alignment(-1, -1),
-                                             width=(w / 3),
-                                             height=h // 3),
+                                             width=(w - w / 4.5) / 3),
                                 ft.Container(ft.Text("Создание тестов", size=30),
-                                             alignment=ft.alignment.Alignment(-0.1, 0),
-                                             width=w / 3 + 0, height=h // 3),
+                                             alignment=ft.alignment.Alignment(-0.4, -0.99999),
+                                             width=(w - w / 4.5) / 3, height=h / 3.25),
+                                ft.Container(alignment=ft.alignment.Alignment(-1, -1),
+                                             width=(w - w / 4.5) / 3, ),
                             ],
                             width=w
                             # alignment=ft.MainAxisAlignment.CENTER
@@ -742,43 +734,27 @@ def teacher_main(page: ft.Page, login, password):
                 ),
                 ft.Row(
                     [
+                        ft.Container(alignment=ft.alignment.Alignment(-1, -1),
+                                     width=(w - w / 4.5) / 3),
                         tema
-                    ], alignment=ft.MainAxisAlignment.CENTER
+                    ],
                 ),
                 ft.Row(
                     [
+                        ft.Container(alignment=ft.alignment.Alignment(-1, -1),
+                                     width=(w - w / 4.5) / 3),
                         classu
-                    ], alignment=ft.MainAxisAlignment.CENTER
+                    ],
                 ),
                 ft.Row(
                     [
+                        ft.Container(alignment=ft.alignment.Alignment(-1, -1),
+                                     width=(w - w / 4.5) / 3),
                         next_btn
-                    ], alignment=ft.MainAxisAlignment.CENTER
+                    ],
                 ),
             ]
         )
-
-        tasks = ft.ListView(expand=100000, spacing=10, padding=20, controls=
-        [
-            ft.Row(
-                [
-                    ft.ElevatedButton("Создать новый тест", on_click=click_new_tasks)],
-                alignment=ft.MainAxisAlignment.CENTER), ft.Divider(thickness=2), ft.Text("asdfggghfgsdfv"),
-            ft.Divider(thickness=2), ft.Text("asdfggghfgsdfv"), ft.Divider(thickness=2),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"),
-            ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv"), ft.Text("asdfggghfgsdfv")
-        ]
-                            )
 
         pagelet = ft.Pagelet(
             appbar=ft.AppBar(
@@ -813,33 +789,77 @@ def teacher_main(page: ft.Page, login, password):
 
         )
 
-        list_make_tasks1 = [
-                               ft.Container(
-                                   ft.Row(
-                                       [
-                                           ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=w // 3),
-                                           ft.Container(ft.Text(f"{vopr} вопрос", size=30),
-                                                        alignment=ft.alignment.Alignment(0, -0),
-                                                        width=w // 3),
-                                           ft.Container(alignment=ft.alignment.Alignment(0.8, -0.9), width=w // 3),
-                                       ]
-                                   ),
-                                   alignment=ft.alignment.Alignment(0, -1), height=h / 15
-                               )] + list_make_tasks
+        make_tasks1 = ft.Column([
+            ft.Container(
+                ft.Container(
+                    ft.Row(
+                        [
+                            ft.Container(alignment=ft.alignment.Alignment(-1, -1),
+                                         width=(w - w / 4.5) / 3),
+                            ft.Container(ft.Text(f"{vopr} вопрос", size=33),
+                                         alignment=ft.alignment.Alignment(-0.4, -0.9999),
+                                         width=(w - w / 4.5) / 3),
+                            ft.Container(end_test, alignment=ft.alignment.Alignment(0.5, -1),
+                                         width=(w - w / 4.5) / 3),
+                        ], width=w
+                    ),
+                    alignment=ft.alignment.Alignment(0, -1)
+                ),
+            ),
+            ft.Divider(thickness=2),
+        ], scroll=ft.ScrollMode.ADAPTIVE)
+        make_tasks1.controls = make_tasks1.controls + list_make_tasks
+        make_tasks1.controls = make_tasks1.controls + [ft.Divider(thickness=2),
+                                                       ft.Row([ft.Container(
+                                                           alignment=ft.alignment.Alignment(
+                                                               -0.9, -0.9),
+                                                           width=(w - w / 4.5) / 3),
+                                                           ansver0]),
+                                                       ft.Row([ft.Container(
+                                                           alignment=ft.alignment.Alignment(
+                                                               -0.9, -0.9),
+                                                           width=(w - w / 4.5) / 3),
+                                                           next_tasks]),
+                                                       ft.Container(height=h / 8)]
+        make_tasks1.controls = make_tasks1.controls + [ft.Container(height=h)]
 
-        make_tasks1 = ft.Column(
-            list_make_tasks1,
-            scroll=ft.ScrollMode.ADAPTIVE
-        )
+        make_tasks10 = ft.Column([
+            ft.Container(
+                ft.Row(
+                    [
+                        ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3),
+                        ft.Container(ft.Text(f"{vopr} вопрос", size=33),
+                                     alignment=ft.alignment.Alignment(0, -0),
+                                     width=(w - w / 4.5) / 3),
+                        ft.Container(end_test, alignment=ft.alignment.Alignment(0.8, -0.9), width=(w - w / 4.5) / 3),
+                    ]
+                ),
+                alignment=ft.alignment.Alignment(0, -1), height=h / 15
+            ), ft.Column([ft.Divider(thickness=2), ft.Row([ft.Container(
+                alignment=ft.alignment.Alignment(
+                    -0.9, -0.9),
+                width=(w - w / 4.5) / 3), question1]),
+                          ft.Row([ft.Container(
+                              alignment=ft.alignment.Alignment(
+                                  -0.9, -0.9),
+                              width=(w - w / 4.5) / 3), ansver]),
+                          ft.Divider(thickness=2), ft.Row([ft.Container(
+                    alignment=ft.alignment.Alignment(
+                        -0.9, -0.9),
+                    width=(w - w / 4.5) / 3), next_tasks1]),
+                          ft.Container(height=h)])], scroll=ft.ScrollMode.ADAPTIVE)
+
+        globalpage = ft.Container(ft.Row([tasks, ft.VerticalDivider(thickness=3)]), width=w / 4.5)
+
         time.sleep(0.001)
         page.clean()
         if state_page == 0:
             pagelet.appbar.title = ft.Text("Задания")
-            pagelet.content = tasks
+            pagelet.content = globalpage
             page.add(pagelet)
             page.update()
         elif state_page == 1:
-            pagelet.content = make_tasks
+            pagelet.content = ft.Row([globalpage, make_tasks])
             page.add(pagelet)
             page.update()
         elif state_page == 2:
@@ -848,8 +868,11 @@ def teacher_main(page: ft.Page, login, password):
             page.add(pagelet)
             page.update()
         elif state_page == 3:
-            pagelet.content = make_tasks1
-
+            page.clean()
+            if option.text == "Без вариантов ответов":
+                pagelet.content = ft.Row([globalpage, make_tasks1])
+            else:
+                pagelet.content = ft.Row([globalpage, make_tasks10])
             page.add(pagelet)
             page.update()
 
@@ -870,28 +893,55 @@ def teacher_main(page: ft.Page, login, password):
         page.update()
 
     def val(e):
-        if tema.value:
-            for i in c:
-                if i.value:
-                    next_btn.disabled = False
-                    page.update()
-                    break
+        breakp = 0
+        global classs
+        for i in c:
+            if i.value:
+                if i.label in classs:
+                    pass
+                else:
+                    classs.append(i.label)
+                breakp = 1
             else:
-                next_btn.disabled = True
-                page.update()
-        else:
+                if i.label in classs:
+                    classs.remove(i.label)
+        if breakp == 0 or not tema.value:
             next_btn.disabled = True
+            page.update()
+        else:
+            next_btn.disabled = False
             page.update()
 
     def val1(e):
         for i in ansver1:
+            if ansver0.value:
+                pass
+            else:
+                next_tasks.disabled = True
+                page.update()
+                break
+            if question.value:
+                pass
+            else:
+                next_tasks.disabled = True
+                page.update()
+                break
             if i.value:
                 pass
             else:
                 next_tasks.disabled = True
+                page.update()
                 break
         else:
             next_tasks.disabled = False
+            page.update()
+
+    def val05(e):
+        if question1.value:
+            next_tasks1.disabled = False
+        else:
+            next_tasks1.disabled = True
+        page.update()
 
     def click_next(e):
         global state_page
@@ -906,38 +956,141 @@ def teacher_main(page: ft.Page, login, password):
             ansver.title = ft.Text(option.text)
             option.text = "С вариантам ответов"
         ansver.initially_expanded = False
-        page.update()
+        page_resize1(1)
 
     def click_make_ansver(e):
+        global list_make_ansver, w, h
+        w = page.window_width
+        h = page.window_height
         a = len(ansver1)
         ansver1.append(ft.TextField(label="Вариант ответа", on_change=val1))
+        val1(1)
         list_make_tasks.append(ft.Row(
-            [
-                ansver1[a]
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),)
+            controls=[ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3), ansver1[a]]))
+        print(list_make_tasks)
+        page_resize1(1)
+
+    def click_tasks(e):
+        pass
+
+    def click_make_tasks(e):
+        global test, ansver1, list_make_tasks, vopr, w, h
+        w = page.window_width
+        h = page.window_height
+        test.append(vopr)
+        test.append(question.value)
+        for i in ansver1:
+            test.append(i.value)
+        test.append('otv')
+        test.append(ansver0.value)
+        del ansver1
+        ansver1 = [ft.TextField(label="Вариант ответа", on_change=val1),
+                   ft.TextField(label="Вариант ответа", on_change=val1), ]
+        vopr += 1
+        ansver0.value = ''
+        question.value = ''
+        list_make_tasks = [
+            ft.Divider(thickness=2),
+            ft.Row(
+                [
+                    ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3), question
+                ],
+            ),
+            ft.Row(
+                [
+                    ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3), ansver
+                ],
+            ),
+            ft.Divider(thickness=2),
+            ft.Row(
+                [
+                    ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3), make_ansver
+                ],
+            ),
+            ft.Row(
+                [
+                    ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3), ansver1[0]
+                ],
+            ),
+            ft.Row(
+                [
+                    ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3), ansver1[1]
+                ],
+            ),
+        ]
+        next_tasks.disabled = True
+        page.clean()
+        page_resize1(1)
+
+    def click_make_tasks1(e):
+        global test, vopr
+        test.append(vopr)
+        test.append("Anya")
+        test.append(question1.value)
+        vopr += 1
+        question1.value = ''
+        next_tasks1.disabled = True
+        page.clean()
+        page_resize1(1)
+
+    def click_end_test(e):
+        global test, state_page
+        client = socket.socket()  # создаем сокет клиента
+        HOST = (socket.gethostname(), 55555)
+        client.connect(HOST)  # подключаемся к серверу
+        classs.sort()
+        test.insert(0, 4)
+        test.insert(1, classs)
+        test.insert(1, tema.value)
+        test.insert(1, password.value)
+        test.insert(1, login.value)
+        client.send(str(test).encode())
+        tema.value = ''
+        data = client.recv(40000)
+        if data.decode() == '0':
+            page.snack_bar = ft.SnackBar(ft.Text("У вас уже есть тест той же темой. Тетс не создан"))
+            page.snack_bar.open = True
+            page.update()
+            time.sleep(1)
+            page.clean()
+        else:
+            page.snack_bar = ft.SnackBar(ft.Text("Тест создан"))
+            page.snack_bar.open = True
+            page.update()
+            time.sleep(1)
+            page.clean()
+        client.close()
+        test = []
+        state_page = 0
         page_resize1(1)
 
     page.on_resize = page_resize1
     # page.window_full_screen = True
     page.padding = ft.padding.only(top=0, left=0)
 
-    global c, state_page, index, vopr
+    global c, state_page, index, vopr, test, ansver1, list_make_tasks, classs, tasks, w, h
     c = []
     state_page = 0
     index = 0
     vopr = 0
+    test = []
+    classs = []
+    w = page.window_width
+    h = page.window_height
 
     # btn
     next_btn = ft.ElevatedButton("Далее", width=300, disabled=True, on_click=click_next)
     option = ft.CupertinoButton("Без вариантов ответов", width=300, on_click=change)
     make_ansver = ft.ElevatedButton("Новый вариант ответа", width=300, on_click=click_make_ansver)
-    next_tasks = ft.ElevatedButton("Следующие задание", width=300, disabled=True, on_click=click_make_ansver)
+    next_tasks = ft.ElevatedButton("Следующие задание", width=300, disabled=True, on_click=click_make_tasks)
+    next_tasks1 = ft.ElevatedButton("Следующие задание", width=300, disabled=True, on_click=click_make_tasks1)
+    end_test = ft.ElevatedButton("Закончить тест", on_click=click_end_test)
 
     # text
     tema = ft.TextField(label="Тема", border=ft.InputBorder.UNDERLINE, on_change=val)
-    question = ft.TextField(label="Вопрос", on_change=val)
+    question = ft.TextField(label="Вопрос", on_change=val1)
+    question1 = ft.TextField(label="Вопрос", on_change=val05)
+    ansver0 = ft.TextField(label="Ответ", on_change=val1)
 
     ansver1 = [ft.TextField(label="Вариант ответа", on_change=val1),
                ft.TextField(label="Вариант ответа", on_change=val1), ]
@@ -952,7 +1105,7 @@ def teacher_main(page: ft.Page, login, password):
         initially_expanded=False,
         collapsed_text_color=ft.colors.BLUE,
         text_color=ft.colors.BLUE,
-        controls=[ft.ListTile(title=ft.Row([ft.Column(c)]))],
+        controls=[ft.ListTile(title=ft.Row([ft.Column(c, scroll=ft.ScrollMode.ADAPTIVE)]))],
         width=300,
         shape=ft.CircleBorder()
     )
@@ -967,62 +1120,64 @@ def teacher_main(page: ft.Page, login, password):
         width=300,
         # shape=ft.CircleBorder()
     )
+    tasks = ft.ListView(expand=100000, spacing=10, padding=20, controls=[
+        ft.Row(
+            [
+                ft.ElevatedButton("Создать новый тест", on_click=click_new_tasks)],
+            alignment=ft.MainAxisAlignment.CENTER), ft.Divider(thickness=2),
+    ])
 
     list_make_tasks = [
+        ft.Row([ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3), question], ),
         ft.Row(
             [
-                question
+                ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3), ansver
             ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-        ft.Row(
-            [
-                ansver
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
         ),
         ft.Divider(thickness=2),
         ft.Row(
             [
-                make_ansver
+                ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3), make_ansver
             ],
-            alignment=ft.MainAxisAlignment.CENTER
         ),
         ft.Row(
             [
-                ansver1[0]
+                ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3), ansver1[0]
             ],
-            alignment=ft.MainAxisAlignment.CENTER
         ),
         ft.Row(
             [
-                ansver1[1]
+                ft.Container(alignment=ft.alignment.Alignment(-0.9, -0.9), width=(w - w / 4.5) / 3), ansver1[1]
             ],
-            alignment=ft.MainAxisAlignment.CENTER
         ),
     ]
 
-    cope_list_make_tasks1 = [
-        ft.Row(
-            [
-                question
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-        ft.Row(
-            [
-                ansver
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-        ft.Divider(thickness=2),
-        ft.Row(
-            [
-                make_ansver
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
-        ),
-    ]
+    client = socket.socket()  # создаем сокет клиента
+    HOST = (socket.gethostname(), 55555)
+    client.connect(HOST)  # подключаемся к серверу
+    a = [3, "Учитель", login.value, password.value]
+    client.send(str(a).encode())
+    cla = client.recv(40000)
+    cla = cla.decode()
+    cla = ast.literal_eval(cla)
+    cla.sort()
+    for i in cla:
+        c.append(ft.Checkbox(label=i, value=False, height=25, on_change=val))
+    client.close()
+
+    client = socket.socket()  # создаем сокет клиента
+    HOST = (socket.gethostname(), 55555)
+    client.connect(HOST)  # подключаемся к серверу
+    a = [5, login.value, password.value]
+    client.send(str(a).encode())
+    task = client.recv(40000)
+    task = task.decode()
+    task = ast.literal_eval(task)
+    client.close()
+
+    for i in task:
+        tasks.controls.append(ft.TextButton(text=f"{i[0]}", on_click=click_tasks), )
+        tasks.controls.append(ft.Divider(thickness=2))
 
     page_resize1(1)
 
